@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { useEffect, useRef, useState } from "react";
 function App() {
+  const [dimension, setDimension] = useState({});
+  const boxRef = useRef();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimension({
+        height: boxRef.current.offsetHeight,
+        width: boxRef.current.offsetWidth,
+      });
+    };
+
+    setDimension({
+      height: boxRef.current.offsetHeight,
+      width: boxRef.current.offsetWidth,
+    });
+
+    window.addEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div  className="font-monospace Container  vh-100 w-100 h-100 justify-justify-content-center align-items-center  text-center align-content-center ">
+        <div
+          ref={boxRef}
+          className="bg-danger"
+          style={{ maxHeight: "500px", maxWidth: "1000px" }}
         >
-          Learn React
-        </a>
-      </header>
+          <h1>Width is {dimension.width}</h1>
+          <h1>Height is {dimension.height}</h1>
+        </div>
+      </div>
     </div>
   );
 }
